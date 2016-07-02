@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="pacienteModule">
+<head>
+	<meta-charset="utf-8">
+	<title>Paciente</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="control/pacienteControl.js"></script>
+</head>
+<body ng-controller="pacienteControl">
+	<div ng-include="'menu.html'"></div>
+	<div class="panel panel-default">
+		
+		        
+    
+		<div class="panel-heading">Cadastro de Paciente</div>
+		<div class="panel-body">
+			<div>
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active">
+			    	<a href="#cadastro" aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+			    </li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="cadastro">					
+			    	<form name="pacienteForm" class="css-form" ng-submit="pacienteForm.$valid && salvar()" novalidate>
+				    	<br>
+						<span ng-repeat="mensagem in mensagens">{{mensagem}}<br></span>
+						<div ng-show="pacienteForm.$submitted">
+						     <div ng-show="pacienteForm.nome.$error.required">Preencha o nome</div>
+	      				     <div ng-show="pacienteForm.nome.$error.minlength">Nome precisa ter pelo menos 10 caracteres</div>
+	      				     <div ng-show="pacienteForm.sexo.$error.required">Preencha o sexo</div>
+	      				     <div ng-show="pacienteForm.telefone.$error.required">Preencha o telefone</div>
+	
+	    				</div>    				
+						<br>
+						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
+						<button type="submit" class="btn btn-success">Salvar</button>
+						<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+						<button type="button" class="btn btn-warning" ng-click="pesquisar()">Pesquisar</button>
+						<hr/>
+					  <div class="form-group col-md-2">
+					    <label for="exampleInputCodigo">Codigo</label>
+					    <input type="number" disabled="true" class="form-control" ng-model="paciente.codigo" placeholder="Codigo">
+					  </div>
+					  
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputNome">Nome</label>
+					    <input type="text" class="form-control" ng-model="paciente.nome" placeholder="Insira o Nome">
+					  </div>
+					  
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputCargo">Sexo</label>
+					    <input type="text" class="form-control" ng-model="paciente.sexo" placeholder="Insira o sexo">
+					  </div>
+
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputEndereco">Data Nascimente</label>
+					    <input type="text" class="form-control" ng-model="paciente.datanasc" placeholder="Insira o data nascimente">
+					  </div>
+					  
+					   <div class="form-group col-md-6">
+					    <label for="exampleInputNome">Telefone</label>
+					    <input type="text" class="form-control" ng-model="paciente.telefone" placeholder="Insira o telefone">
+					  </div>
+					  
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputCargo">Celular</label>
+					    <input type="text" class="form-control" ng-model="paciente.celular" placeholder="Insira o Celular">
+					  </div>
+
+									
+					</form>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="dados">
+				<br>
+				<input type="text" class="form-control" ng-model="criterio" 
+				placeholder="O que voce esta procurando?" /><br>
+			    	<table class="table table-hover">
+			    		<th>Codigo</th><th>Nome</th><th>Sexo</th><th>Nascimento</th><th>Telefone</th><th>Celular</th>
+
+			    		<tr ng-repeat="pacienteTabela in pacientes | filter:criterio" ng-click="seleciona(pacienteTabela);">
+			    			<td>{{pacienteTabela.codigo}}</td><td>{{pacienteTabela.nome}}</td><td>{{pacienteTabela.sexo}}</td><td>{{pacienteTabela.datanasc}}</td>
+			    			<td>{{pacienteTabela.telefone}}</td><td>{{pacienteTabela.celular}}</td>
+			    		</tr>
+					</table>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
