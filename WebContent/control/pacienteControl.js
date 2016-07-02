@@ -1,7 +1,6 @@
 var app = angular.module('pacienteModule',[]);
 
-app.controller('pacienteControl',function($scope,$http){
-	
+app.controller('pacienteControl',function($scope,$http){	
 	var url = 'http://localhost:8080/Clinica/rs/paciente';
 	
 	$scope.pesquisar = function(){

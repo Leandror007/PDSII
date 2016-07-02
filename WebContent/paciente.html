@@ -7,6 +7,7 @@
 	<script src="js/angular.min.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/ui-bootstrap-tpls-0.14.1.min.js"></script>
 	<script src="control/pacienteControl.js"></script>
 </head>
 <body ng-controller="pacienteControl">
@@ -15,7 +16,7 @@
 		
 		        
     
-		<div class="panel-heading">Cadastro de Paciente</div>
+		<div class="panel-heading">Cadastro de paciente</div>
 		<div class="panel-body">
 			<div>
 			  <!-- Nav tabs -->
@@ -30,16 +31,15 @@
 			  <!-- Tab panes -->
 			  <div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="cadastro">					
-			    	<form name="pacienteForm" class="css-form" ng-submit="pacienteForm.$valid && salvar()" novalidate>
+			    	<form name="pacienteForm" method="post" class="css-form" ng-submit="pacienteForm.$valid && salvar()" novalidate>
 				    	<br>
 						<span ng-repeat="mensagem in mensagens">{{mensagem}}<br></span>
 						<div ng-show="pacienteForm.$submitted">
-						     <div ng-show="pacienteForm.nome.$error.required">Preencha o nome</div>
+						    <div ng-show="pacienteForm.nome.$error.required">Preencha o nome</div>
 	      				     <div ng-show="pacienteForm.nome.$error.minlength">Nome precisa ter pelo menos 10 caracteres</div>
 	      				     <div ng-show="pacienteForm.sexo.$error.required">Preencha o sexo</div>
 	      				     <div ng-show="pacienteForm.telefone.$error.required">Preencha o telefone</div>
-	
-	    				</div>    				
+	      			</div>    				
 						<br>
 						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
 						<button type="submit" class="btn btn-success">Salvar</button>
@@ -50,15 +50,17 @@
 					    <label for="exampleInputCodigo">Codigo</label>
 					    <input type="number" disabled="true" class="form-control" ng-model="paciente.codigo" placeholder="Codigo">
 					  </div>
+	
 					  
 					  <div class="form-group col-md-6">
 					    <label for="exampleInputNome">Nome</label>
-					    <input type="text" class="form-control" ng-model="paciente.nome" placeholder="Insira o Nome">
-					  </div>
+					    <input type="text" class="form-control" ng-model="paciente.nome" name="nome" placeholder="Insira o Nome" required="" ng-minlength="10" />
+					  </div>	
+
 					  
 					  <div class="form-group col-md-4">
 					    <label for="exampleInputCargo">Sexo</label>
-					    <input type="text" class="form-control" ng-model="paciente.sexo" placeholder="Insira o sexo">
+					    <input type="text" class="form-control" ng-model="paciente.sexo"  name="sexo" placeholder="Insira o sexo" required="">
 					  </div>
 
 					  <div class="form-group col-md-6">
@@ -76,7 +78,7 @@
 					    <input type="text" class="form-control" ng-model="paciente.celular" placeholder="Insira o Celular">
 					  </div>
 
-									
+					 					  
 					</form>
 			    </div>
 			    <div role="tabpanel" class="tab-pane" id="dados">
@@ -84,11 +86,10 @@
 				<input type="text" class="form-control" ng-model="criterio" 
 				placeholder="O que voce esta procurando?" /><br>
 			    	<table class="table table-hover">
-			    		<th>Codigo</th><th>Nome</th><th>Sexo</th><th>Nascimento</th><th>Telefone</th><th>Celular</th>
+			    		<th>Codigo</th><th>Nome</th><th>URL</th>
 
 			    		<tr ng-repeat="pacienteTabela in pacientes | filter:criterio" ng-click="seleciona(pacienteTabela);">
-			    			<td>{{pacienteTabela.codigo}}</td><td>{{pacienteTabela.nome}}</td><td>{{pacienteTabela.sexo}}</td><td>{{pacienteTabela.datanasc}}</td>
-			    			<td>{{pacienteTabela.telefone}}</td><td>{{pacienteTabela.celular}}</td>
+			    			<td>{{pacienteTabela.codigo}}</td><td>{{pacienteTabela.nome}}</td><td>{{pacienteTabela.url}}</td>
 			    		</tr>
 					</table>
 			    </div>
